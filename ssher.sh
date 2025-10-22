@@ -1,13 +1,16 @@
 #!/bin/bash
 
-USER="anon"
-IP=192.168.122.168
-COMMANDS=""
-
 add_command() {
 	COMMANDS+=$(cat scripts/$1)
 	SEND_COMMANDS=1
 }
+
+USER=$1
+shift
+IP=$1
+shift
+
+COMMANDS=""
 
 while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
     -k | --keygen )
