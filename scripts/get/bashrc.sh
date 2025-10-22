@@ -1,3 +1,5 @@
 #!/bin/sh
 
-cat ~/.bashrc
+echo -e "\nBASHRC:"
+cat ~/.bashrc | sed 's/^/\t/'
+
