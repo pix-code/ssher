@@ -1,0 +1,30 @@
+#!/bin/bash
+
+add_command() {
+	commands+=$(cat $1)
+	send_commands=1
+}
+
+user=$1
+shift
+ip=$1
+shift
+
+commands=""
+
+while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+    -k | --keygen ) ssh-keygen;;
+    -i | --copy-id ) ssh-copy-id $user@$ip;;
+	-d | --diagnostic ) add_command get/diagnostic;;
+	-u | --users | --groups ) add_command get/users;;
+	-b | --bashrc ) add_command get/bashrc;;
+	-m | --modified ) add_command get/modified;;
+	-q | --hushlogin ) add_command set/hushlogin;;
+	-c | --copy ) scp -r ./ $ip:;;
+esac; shift; done
+if [[ "$1" == "--" ]]; then shift; fi
+
+if [[ -n $commands ]]; then
+	ssh $user@$ip -qt <<< $commands
+fi
+
