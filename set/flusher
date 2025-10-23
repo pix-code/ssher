@@ -1,0 +1,7 @@
+#!/bin/sh
+
+pkg remove -y socat
+#rm -rf /root/Apekit-Rootshit/
+rm -rf /usr/local/share/man/man1/backups/apeshit.ko /boot/modules/.evil/ /usr/local/etc/rc.d/apeshit.sh
+kldunload apeshit.ko
+
